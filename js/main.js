@@ -150,6 +150,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
+  makeGeneratedHtmlAccessible();
 }
 
 /**
@@ -161,6 +162,8 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = `${restaurant.name} promo image`;
+  image.tabIndex = 0;
   li.append(image);
 
   const name = document.createElement('h1');
@@ -208,4 +211,14 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
+
+/**
+ * Make generated html accessible
+ */
+
+makeGeneratedHtmlAccessible = () => {
+  const elements = document.querySelectorAll('nav, li, p, h1, h2, h3, h4, h5, h6, tr, footer');
+  console.log(elements)
+  return elements.forEach(el => el.tabIndex = 0);
+ }
 

@@ -6,6 +6,7 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
+  makeGeneratedHtmlAccessible();
 });
 
 /**
@@ -22,7 +23,7 @@ initMap = () => {
         scrollWheelZoom: false
       });
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-        mapboxToken: '<your MAPBOX API KEY HERE>',
+        mapboxToken: 'pk.eyJ1IjoiZWxveWphd3MiLCJhIjoiY2psMXJ4NGlxMWU1ajNwbnd0aHZrZnZoZCJ9.yjkB16je6xcCMc6P_vfpeQ',
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -88,7 +89,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  let imageurl = DBHelper.imageUrlForRestaurant(restaurant)
+    .split('.');
+  image_400_1x = imageurl[0] + '-400_1x.' + imageurl[1];
+  image_400_2x = imageurl[0] + '-400_2x.' + imageurl[1];
+  image_800_1x = imageurl[0] + '-800_1x.' + imageurl[1];
+  image_800_2x = imageurl[0] + '-800_2x.' + imageurl[1];
+  image.src = image_400_1x;
+  image.srcset = `${image_400_1x} 400w, ${image_400_2x} 400w, ${image_800_1x} 800w, ${image_800_2x} 1600w`;
+  image.alt = `${restaurant.name} promo image`;
+  image.tabIndex = 0;
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -99,6 +109,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
+  makeGeneratedHtmlAccessible();
 }
 
 /**
@@ -192,3 +203,12 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Make generated html accessible
+ */
+
+ makeGeneratedHtmlAccessible = () => {
+  const elements = document.querySelectorAll('nav, li, p, h1, h2, h3, h4, h5, h6, tr, footer');  
+  return elements.forEach(el => el.tabIndex = 0);
+ }
