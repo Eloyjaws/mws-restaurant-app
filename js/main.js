@@ -161,13 +161,21 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.alt = `${restaurant.name} promo image`;
+  let imageurl = DBHelper.imageUrlForRestaurant(restaurant)
+    .split('.');
+  image_400_1x = imageurl[0] + '-400_1x.' + imageurl[1];
+  image_400_2x = imageurl[0] + '-400_2x.' + imageurl[1];
+  image_800_1x = imageurl[0] + '-800_1x.' + imageurl[1];
+  image_800_2x = imageurl[0] + '-800_2x.' + imageurl[1];
+  image.src = image_400_1x;
+  image.srcset = `${image_400_1x} 400w, ${image_400_2x} 400w, ${image_800_1x} 800w, ${image_800_2x} 1600w`;
+  image.alt = `${restaurant.name} display`;
   image.tabIndex = 0;
   li.append(image);
 
-  const name = document.createElement('h1');
+  const name = document.createElement('p');
   name.innerHTML = restaurant.name;
+  name.classList.add('name')
   li.append(name);
 
   const neighborhood = document.createElement('p');
@@ -178,9 +186,12 @@ createRestaurantHTML = (restaurant) => {
   address.innerHTML = restaurant.address;
   li.append(address);
 
-  const more = document.createElement('a');
+  const more = document.createElement('button');
   more.innerHTML = 'View Details';
-  more.href = DBHelper.urlForRestaurant(restaurant);
+  more.onclick = () => {
+    const href = DBHelper.urlForRestaurant(restaurant);
+    window.location = href;
+  }
   li.append(more)
 
   return li

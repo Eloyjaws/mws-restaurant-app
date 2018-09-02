@@ -89,6 +89,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
+  image.className = 'restaurant-img'
   let imageurl = DBHelper.imageUrlForRestaurant(restaurant)
     .split('.');
   image_400_1x = imageurl[0] + '-400_1x.' + imageurl[1];
@@ -97,7 +98,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image_800_2x = imageurl[0] + '-800_2x.' + imageurl[1];
   image.src = image_400_1x;
   image.srcset = `${image_400_1x} 400w, ${image_400_2x} 400w, ${image_800_1x} 800w, ${image_800_2x} 1600w`;
-  image.alt = `${restaurant.name} promo image`;
+  image.alt = `${restaurant.name} display`;
   image.tabIndex = 0;
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -159,15 +160,20 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+  const div = document.createElement('div');
+  div.classList.add('greyed-out-review');
+  li.appendChild(div);
+
   const name = document.createElement('p');
   name.innerHTML = review.name;
-  li.appendChild(name);
+  div.appendChild(name);
 
   const date = document.createElement('p');
   date.innerHTML = review.date;
-  li.appendChild(date);
+  div.appendChild(date);
 
   const rating = document.createElement('p');
+  rating.classList.add('yellow-rating')
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 

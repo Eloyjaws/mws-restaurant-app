@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <a class="skiplink" href="#filter">Skip Map</a>
   <header>
     <nav>
       <h1><a href="/">Restaurant Reviews</a></h1>
@@ -21,16 +22,18 @@
 
   <main id="maincontent">
     <section class="map-container">
-      <label hidden for="map">Map showing restaurant locations</label>
-      <div id="map"></div>
+      <label id="map-area" hidden for="map">Map showing restaurant locations</label>
+      <div id="map" aria-labelledby="map-area" role="application"></div>
     </section>
     <section>
       <div class="filter-options">
-        <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <h2 id="filter">Filter Results</h2>
+        <label id="neighborhoods-filter" hidden for="neighborhoods-select">filter by neighborhoods</label>
+        <select id="neighborhoods-select" name="neighborhoods" aria-labelledby="neighborhoods-filter" onchange="updateRestaurants()">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <label id="cuisines-filter" hidden for="cuisines-select">filter by cuisines</label>
+        <select id="cuisines-select" name="cuisines" aria-labelledby="cuisines-filter" onchange="updateRestaurants()">
           <option value="all">All Cuisines</option>
         </select>
       </div>
