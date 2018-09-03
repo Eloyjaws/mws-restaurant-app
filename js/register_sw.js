@@ -1,7 +1,7 @@
 function main() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
-            .register('/sw.js', { updateViaCache: 'none', scope: '/mws-restaurant-stage-1/' })
+            .register('./sw.js', { updateViaCache: 'none', scope: '/mws-restaurant-stage-1/' })
             .then((reg) => {
                 if (!navigator.serviceWorker.controller) return;
                 if (reg.waiting) {
