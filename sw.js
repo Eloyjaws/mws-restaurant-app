@@ -1,3 +1,5 @@
+const scope = '/';
+
 // Set a name for the current cache
 let staticCacheName = 'mws-restaurants-project-1-v2';
 
@@ -5,33 +7,31 @@ let staticCacheName = 'mws-restaurants-project-1-v2';
 const cacheFiles = [
     './',
     './index.html',
-    './restaurant.html',
     './css/styles.css',
     './js/dbhelper.js',
     './js/main.js',
     './js/register_sw.js',
     './js/restaurant_info.js',
-    './sw.js',
-    './mws-restaurant-stage-1/img/1-400_1x.jpg',
-    './mws-restaurant-stage-1/img/2-400_1x.jpg',
-    './mws-restaurant-stage-1/img/3-400_1x.jpg',
-    './mws-restaurant-stage-1/img/4-400_1x.jpg',
-    './mws-restaurant-stage-1/img/5-400_1x.jpg',
-    './mws-restaurant-stage-1/img/6-400_1x.jpg',
-    './mws-restaurant-stage-1/img/7-400_1x.jpg',
-    './mws-restaurant-stage-1/img/8-400_1x.jpg',
-    './mws-restaurant-stage-1/img/9-400_1x.jpg',
-    './mws-restaurant-stage-1/img/10-400_1x.jpg',
-    './mws-restaurant-stage-1/img/1-800_2x.jpg',
-    './mws-restaurant-stage-1/img/2-800_2x.jpg',
-    './mws-restaurant-stage-1/img/3-800_2x.jpg',
-    './mws-restaurant-stage-1/img/4-800_2x.jpg',
-    './mws-restaurant-stage-1/img/5-800_2x.jpg',
-    './mws-restaurant-stage-1/img/6-800_2x.jpg',
-    './mws-restaurant-stage-1/img/7-800_2x.jpg',
-    './mws-restaurant-stage-1/img/8-800_2x.jpg',
-    './mws-restaurant-stage-1/img/9-800_2x.jpg',
-    './mws-restaurant-stage-1/img/10-800_2x.jpg',
+    `.${scope}img/1-400_1x.jpg`,
+    `.${scope}img/2-400_1x.jpg`,
+    `.${scope}img/3-400_1x.jpg`,
+    `.${scope}img/4-400_1x.jpg`,
+    `.${scope}img/5-400_1x.jpg`,
+    `.${scope}img/6-400_1x.jpg`,
+    `.${scope}img/7-400_1x.jpg`,
+    `.${scope}img/8-400_1x.jpg`,
+    `.${scope}img/9-400_1x.jpg`,
+    `.${scope}img/10-400_1x.jpg`,
+    `.${scope}img/1-800_2x.jpg`,
+    `.${scope}img/2-800_2x.jpg`,
+    `.${scope}img/3-800_2x.jpg`,
+    `.${scope}img/4-800_2x.jpg`,
+    `.${scope}img/5-800_2x.jpg`,
+    `.${scope}img/6-800_2x.jpg`,
+    `.${scope}img/7-800_2x.jpg`,
+    `.${scope}img/8-800_2x.jpg`,
+    `.${scope}img/9-800_2x.jpg`,
+    `.${scope}img/10-800_2x.jpg`,
     './data/restaurants.json',
     'https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN_r8OUuhp.woff2',
     'https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UNirkOX-hpOqc.woff2'
@@ -61,8 +61,16 @@ self.addEventListener('fetch', (event) => {
         caches.open(staticCacheName)
             .then((cache) => cache.match(event.request)
                 .then((response) => {
-                    return response || fetch(event.request); 
-                    //TODO handle when the req failed. maybe a 404
+                    return response || fetch(event.request).then(response => {
+                        return caches.open(staticCacheName)
+                            .then(cache => {
+                                cache.put(event.request, response.clone())
+                                return response;
+                            })
+                    }); 
+                })
+                .catch(()=>{
+                    return caches.match('/index.html')
                 })
             )
     );

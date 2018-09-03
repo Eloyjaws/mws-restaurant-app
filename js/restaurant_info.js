@@ -91,11 +91,11 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   image.className = 'restaurant-img'
   image.className = 'restaurant-img'
   let imageurl = DBHelper.imageUrlForRestaurant(restaurant)
-    .split('.');
-  image_400_1x = imageurl[0] + '-400_1x.' + imageurl[1];
-  image_400_2x = imageurl[0] + '-400_2x.' + imageurl[1];
-  image_800_1x = imageurl[0] + '-800_1x.' + imageurl[1];
-  image_800_2x = imageurl[0] + '-800_2x.' + imageurl[1];
+    .split('.jpg');
+  image_400_1x = imageurl[0] + '-400_1x.' + 'jpg';
+  image_400_2x = imageurl[0] + '-400_2x.' + 'jpg';
+  image_800_1x = imageurl[0] + '-800_1x.' + 'jpg';
+  image_800_2x = imageurl[0] + '-800_2x.' + 'jpg';
   image.src = image_400_1x;
   image.srcset = `${image_400_1x} 400w, ${image_400_2x} 400w, ${image_800_1x} 800w, ${image_800_2x} 1600w`;
   image.alt = `${restaurant.name} display`;
