@@ -1,7 +1,7 @@
 const scope = '/';
 
 // Set a name for the current cache
-let staticCacheName = 'mws-restaurants-project-1-v2';
+let staticCacheName = 'mws-restaurants-project-1-v1';
 
 // Default files to always cache
 const cacheFiles = [
@@ -50,7 +50,7 @@ self.addEventListener('activate', (event) => {
         caches.keys()
             .then((cacheNames) => Promise.all(
                 cacheNames.filter((cacheName) => cacheName.startsWith('mws-restaurants-project-1-') && cacheName != staticCacheName)
-                    .map((cacheName) => {console.log(cacheName, 'cache deleted'); return caches.delete(cacheName)})
+                    .map((cacheName) => { console.log(cacheName, 'cache deleted'); return caches.delete(cacheName) })
             )
             )
     );
@@ -61,22 +61,23 @@ self.addEventListener('fetch', (event) => {
         caches.open(staticCacheName)
             .then((cache) => cache.match(event.request)
                 .then((response) => {
-                    return response || fetch(event.request).then(response => {
-                        return caches.open(staticCacheName)
-                            .then(cache => {
-                                cache.put(event.request, response.clone())
-                                return response;
-                            })
-                    }); 
+                    return response || fetch(event.request)
+                        .then(response => {
+                            return caches.open(staticCacheName)
+                                .then(cache => {
+                                    cache.put(event.request, response.clone())
+                                    return response;
+                                })
+                        });
                 })
-                .catch(()=>{
+                .catch(() => {
                     return caches.match('/index.html')
                 })
             )
     );
 });
 
-self.addEventListener('message', function(event) {
+self.addEventListener('message', function (event) {
     if (event.data.action === 'skipWaiting') {
         self.skipWaiting();
     }
