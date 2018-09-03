@@ -229,7 +229,6 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 
 makeGeneratedHtmlAccessible = () => {
   const elements = document.querySelectorAll('nav, li, p, h1, h2, h3, h4, h5, h6, tr, footer');
-  console.log(elements)
   return elements.forEach(el => el.tabIndex = 0);
  }
 
