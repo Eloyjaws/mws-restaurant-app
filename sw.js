@@ -1,4 +1,4 @@
-const scope = '/';
+const scope = '/mws-restaurant-stage-1/';
 
 // Set a name for the current cache
 let staticCacheName = 'mws-restaurants-project-1-v2';
