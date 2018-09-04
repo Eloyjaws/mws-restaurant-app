@@ -1,7 +1,7 @@
 const scope = '/';
 
 // Set a name for the current cache
-let staticCacheName = 'mws-restaurants-project-1-v4';
+let staticCacheName = 'mws-restaurant-stage-1-v4';
 
 // Default files to always cache
 const cacheFiles = [
@@ -62,6 +62,11 @@ self.addEventListener('fetch', (event) => {
             .then((cache) => cache.match(event.request)
                 .then((response) => {
                     return response || fetch(event.request)
+                        // .then(response => {
+                        //     if(!response || response.status !== 200 || response.type !== 'basic') {
+                        //         return response;
+                        //         }
+                        // })
                         .then(response => {
                             return caches.open(staticCacheName)
                                 .then(cache => {
