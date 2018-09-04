@@ -1,6 +1,6 @@
-const scope = '/mws-restaurant-stage-1/'
 function main() {
     if ('serviceWorker' in navigator) {
+        const scope = '/mws-restaurant-stage-1/'
         navigator.serviceWorker
             .register('./sw.js', { updateViaCache: 'none', scope })
             .then((reg) => {
