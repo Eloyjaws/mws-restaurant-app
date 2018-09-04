@@ -1,7 +1,7 @@
 const scope = '/mws-restaurant-stage-1/';
 
 // Set a name for the current cache
-let staticCacheName = 'mws-restaurants-project-1-v2';
+let staticCacheName = 'mws-restaurants-project-1-v3';
 
 // Default files to always cache
 const cacheFiles = [
