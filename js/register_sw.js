@@ -1,4 +1,4 @@
-const scope = '/mws-restaurant-stage-1/'
+const scope = '/'
 function main() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
