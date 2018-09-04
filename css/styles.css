@@ -32,7 +32,7 @@ body {
   max-width: 1360px;
   margin: 0 auto;
 }
-ul, li {
+ul, ol, li {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;
 	color: #333;
