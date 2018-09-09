@@ -201,6 +201,7 @@ nav h1 a {
   font-size: 11pt;
 }
 #restaurants-list li button {
+  cursor: pointer;
   background-color: #252831;
   border-color: #eee;
   border-bottom: 3px solid #eee;
@@ -215,6 +216,9 @@ nav h1 a {
   text-decoration: none;
   text-transform: uppercase;
   width: 100%;
+}
+#restaurants-list li button:hover {
+  opacity: 0.98;
 }
 
 /* ====================== Restaurant Details ====================== */
