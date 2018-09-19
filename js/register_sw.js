@@ -1,5 +1,7 @@
 function main() {
     if ('serviceWorker' in navigator) {
+        /* Use '/' as scope when running locally. The current scope is specific to github pages*/
+        // const scope = '/'
         const scope = '/mws-restaurant-stage-1/'
         navigator.serviceWorker
             .register('./sw.js', { updateViaCache: 'none', scope })
