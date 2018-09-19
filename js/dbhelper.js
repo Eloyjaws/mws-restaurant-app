@@ -17,10 +17,22 @@ class DBHelper {
   static fetchRestaurants(callback) {
     fetch(DBHelper.DATABASE_URL)
       .then(res => res.json())
-      .then(restaurants => callback(null, restaurants))
+      .then(restaurants => {
+        self.addDataToIdb("restaurantsArray", JSON.stringify(restaurants));
+        callback(null, restaurants);
+      })
       .catch(err => {
-        const error = `Request failed`;
-        callback(error, null);
+        self
+          .getDataFromIdb("restaurantsArray")
+          .then(restaurants => {
+            console.log(restaurants);
+            if (restaurants) {
+              callback(null, JSON.parse(restaurants));
+              return;
+            }
+            const error = `Request failed`;
+            callback(error, null);
+          })
       });
   }
 
@@ -30,12 +42,23 @@ class DBHelper {
   static fetchRestaurantById(id, callback) {
     fetch(`${DBHelper.DATABASE_URL}/${id}`)
       .then(res => res.json())
-      .then(restaurant => callback(null, restaurant))
-      .catch(err => {
-        const error = `Request failed`;
-        callback(error, null);
+      .then(restaurant => {
+        self.addDataToIdb(id, JSON.stringify(restaurant));
+        callback(null, restaurant)
       })
-    // callback('Restaurant does not exist', null);
+      .catch(err => {
+        self
+          .getDataFromIdb(id)
+          .then(restaurants => {
+            console.log(restaurants);
+            if (restaurants) {
+              callback(null, JSON.parse(restaurants));
+              return;
+            }
+            const error = `Request failed`;
+            callback(error, null);
+          })
+      });
   }
 
   /**

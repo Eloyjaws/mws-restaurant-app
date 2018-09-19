@@ -1,7 +1,7 @@
 const scope = '/';
 
 // Set a name for the current cache
-let staticCacheName = 'mws-restaurants-project-1-v1';
+let staticCacheName = 'mws-restaurants-project-1-v6';
 
 // Default files to always cache
 const cacheFiles = [
@@ -32,7 +32,6 @@ const cacheFiles = [
     `.${scope}img/8-800_2x.jpg`,
     `.${scope}img/9-800_2x.jpg`,
     `.${scope}img/10-800_2x.jpg`,
-    './data/restaurants.json',
     'https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN_r8OUuhp.woff2',
     'https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UNirkOX-hpOqc.woff2'
 
@@ -61,6 +60,7 @@ self.addEventListener('fetch', (event) => {
         caches.open(staticCacheName)
             .then((cache) => cache.match(event.request)
                 .then((response) => {
+                    console.log({response})
                     return response || fetch(event.request)
                         .then(response => {
                             return caches.open(staticCacheName)
