@@ -69,7 +69,7 @@ fetchRestaurantFromURL = (callback) => {
       self.restaurant = restaurant;
       if (!restaurant) {
         console.error(error);
-        return;
+        return window.location = "/";
       }
       fillRestaurantHTML();
       callback(null, restaurant)
