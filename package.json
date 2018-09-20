@@ -1,0 +1,43 @@
+{
+  "name": "mws-restaurant-stage-1",
+  "version": "1.0.0",
+  "description": "Restaurant finder app",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eloyjaws/mws-restaurant-stage-1.git"
+  },
+  "keywords": [
+    "Udacity",
+    "Mobile",
+    "web",
+    "specialist",
+    "Nanodegree",
+    "project"
+  ],
+  "author": "Eniola Ajiboye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eloyjaws/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/Eloyjaws/mws-restaurant-stage-1#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^4.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "browser-sync": "^2.24.7",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-inline-source": "^3.2.0",
+    "gulp-minify": "^3.1.0",
+    "gulp-uglify": "^3.0.1"
+  }
+}

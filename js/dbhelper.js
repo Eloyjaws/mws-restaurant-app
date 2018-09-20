@@ -22,17 +22,15 @@ class DBHelper {
         callback(null, restaurants);
       })
       .catch(err => {
-        self
-          .getDataFromIdb("restaurantsArray")
-          .then(restaurants => {
-            console.log(restaurants);
-            if (restaurants) {
-              callback(null, JSON.parse(restaurants));
-              return;
-            }
-            const error = `Request failed`;
-            callback(error, null);
-          })
+        self.getDataFromIdb("restaurantsArray").then(restaurants => {
+          console.log(restaurants);
+          if (restaurants) {
+            callback(null, JSON.parse(restaurants));
+            return;
+          }
+          const error = `Request failed`;
+          callback(error, null);
+        });
       });
   }
 
@@ -44,20 +42,18 @@ class DBHelper {
       .then(res => res.json())
       .then(restaurant => {
         self.addDataToIdb(id, JSON.stringify(restaurant));
-        callback(null, restaurant)
+        callback(null, restaurant);
       })
       .catch(err => {
-        self
-          .getDataFromIdb(id)
-          .then(restaurants => {
-            console.log(restaurants);
-            if (restaurants) {
-              callback(null, JSON.parse(restaurants));
-              return;
-            }
-            const error = `Request failed`;
-            callback(error, null);
-          })
+        self.getDataFromIdb(id).then(restaurants => {
+          console.log(restaurants);
+          if (restaurants) {
+            callback(null, JSON.parse(restaurants));
+            return;
+          }
+          const error = `Request failed`;
+          callback(error, null);
+        });
       });
   }
 
