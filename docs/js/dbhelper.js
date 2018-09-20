@@ -4,11 +4,12 @@
 class DBHelper {
   /**
    * Database URL.
-   * Change this to restaurants.json file location on your server.
+   * Change this to `http://localhost:1337/restaurants` to point to your local sails server.
    */
   static get DATABASE_URL() {
-    const port = 8000; // Change this to your server port
-    return `http://localhost:1337/restaurants`;
+    return `https://mws-restaurants-app.herokuapp.com/restaurants`;
+
+    // return `http://localhost:1337/restaurants`;
   }
 
   /**
@@ -23,7 +24,6 @@ class DBHelper {
       })
       .catch(err => {
         self.getDataFromIdb("restaurantsArray").then(restaurants => {
-          console.log(restaurants);
           if (restaurants) {
             callback(null, JSON.parse(restaurants));
             return;
@@ -46,7 +46,6 @@ class DBHelper {
       })
       .catch(err => {
         self.getDataFromIdb(id).then(restaurants => {
-          console.log(restaurants);
           if (restaurants) {
             callback(null, JSON.parse(restaurants));
             return;
