@@ -65,11 +65,12 @@ fetchRestaurantFromURL = (callback) => {
     error = 'No restaurant id in URL'
     callback(error, null);
   } else {
+    const root = "/mws-restaurant-stage-1";
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
       self.restaurant = restaurant;
       if (!restaurant) {
         console.error(error);
-        window.location = "/";
+        window.location = root;
         alert('oops, something went wrong')
       }
       fillRestaurantHTML();
