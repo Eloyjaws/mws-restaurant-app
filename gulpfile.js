@@ -50,8 +50,8 @@ gulp.task("inline", function() {
 });
 
 gulp.task("copy-images", function() {
-  return gulp.src("img/*");
-  pipe(
+  return gulp.src("img/**/*")
+  .pipe(
     imagemin([
       imagemin.gifsicle({ interlaced: true }),
       imagemin.jpegtran({ progressive: true }),

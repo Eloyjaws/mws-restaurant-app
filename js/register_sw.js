@@ -3,7 +3,7 @@ function main() {
     /* Use '/' as scope when running locally. The current scope is specific to github pages*/
     // const scope = '/'
     // const scope = '/dist/'
-    const scope = "/mws-restaurant-stage-1/";
+    const scope = "/mws-restaurant-app";
     navigator.serviceWorker
       .register("./sw.js", { updateViaCache: "none", scope })
       .then(reg => {
