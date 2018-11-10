@@ -63,6 +63,35 @@
       <ul id="reviews-list"></ul>
     </section>
     <!-- End reviews -->
+    <!-- Beginning add review form -->
+    <section id="reviews-container">
+      <form id="review-form">
+        <div class="greyed-out-review">
+          <p>Leave a review</p>
+        </div>
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input class="p-10" type="text" placeholder="Enter name here..." name="name" id="name">
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <select class="p-10" name="rating" id="rating">
+            <option value="null">Select Rating...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="comments">Comments: </label>
+          <textarea class="p-10" name="comments" id="comments" cols="30" rows="5" placeholder="Leave a comment..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-submit">Submit</button>
+      </form>
+    </section>
+    <!-- End add review form -->
   </main>
   <!-- End main -->
 

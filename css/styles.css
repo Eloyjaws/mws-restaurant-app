@@ -211,7 +211,7 @@ nav h1 a {
   display: inline-block;
   font-size: 10pt;
   margin: 15px 0 0;
-  padding: 8px 30px 10px;
+  padding: 12px 30px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
@@ -219,6 +219,58 @@ nav h1 a {
 }
 #restaurants-list li button:hover {
   opacity: 0.98;
+  color: gold;
+}
+
+#review-form {
+  background-color: #fff;
+  border: 2px solid #f3f3f3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 20px 20px 0;
+  overflow: hidden;
+  padding: 80px 20px 20px 20px;
+  position: relative;
+  width: 85%;
+  border-top-left-radius: 2em;
+  max-width: 270px;
+}
+
+#review-form label {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.btn {
+  margin-top: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+.btn:hover, .btn:focus {
+  color: gold;
+}
+.btn-submit {
+  background-color: #252831;
+  padding: 12px 8px;
+  border: none;
+  color: #fff;
+}
+
+.p-8 {
+  padding: 8px;
+}
+.p-10 {
+  padding: 10px;
+}
+
+.mt-2 {
+  margin-top: 2px;
 }
 
 /* ====================== Restaurant Details ====================== */
@@ -393,7 +445,6 @@ nav h1 a {
 @media screen and (min-width: 700px) {
   #restaurant-container {
     width: 100vw;
-    max-width: 100vw;
     display: flex;
     flex-direction: row;
   }

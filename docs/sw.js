@@ -17,28 +17,28 @@ const cacheFiles = [
   `${scopePrefix}/js/main.js`,
   `${scopePrefix}/js/register_sw.js`,
   `${scopePrefix}/js/restaurant_info.js`,
-  `${scopePrefix}${scope}img/1-400_1x.jpg`,
-  `${scopePrefix}${scope}img/2-400_1x.jpg`,
-  `${scopePrefix}${scope}img/3-400_1x.jpg`,
-  `${scopePrefix}${scope}img/4-400_1x.jpg`,
-  `${scopePrefix}${scope}img/5-400_1x.jpg`,
-  `${scopePrefix}${scope}img/6-400_1x.jpg`,
-  `${scopePrefix}${scope}img/7-400_1x.jpg`,
-  `${scopePrefix}${scope}img/8-400_1x.jpg`,
-  `${scopePrefix}${scope}img/9-400_1x.jpg`,
-  `${scopePrefix}${scope}img/10-400_1x.jpg`,
-  `${scopePrefix}${scope}img/1-800_2x.jpg`,
-  `${scopePrefix}${scope}img/2-800_2x.jpg`,
-  `${scopePrefix}${scope}img/3-800_2x.jpg`,
-  `${scopePrefix}${scope}img/4-800_2x.jpg`,
-  `${scopePrefix}${scope}img/5-800_2x.jpg`,
-  `${scopePrefix}${scope}img/6-800_2x.jpg`,
-  `${scopePrefix}${scope}img/7-800_2x.jpg`,
-  `${scopePrefix}${scope}img/8-800_2x.jpg`,
-  `${scopePrefix}${scope}img/9-800_2x.jpg`,
-  `${scopePrefix}${scope}img/10-800_2x.jpg`,
-  "https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN_r8OUuhp.woff2",
-  "https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UNirkOX-hpOqc.woff2"
+  // `${scopePrefix}${scope}img/1-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/2-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/3-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/4-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/5-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/6-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/7-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/8-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/9-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/10-400_1x.jpg`,
+  // `${scopePrefix}${scope}img/1-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/2-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/3-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/4-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/5-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/6-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/7-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/8-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/9-800_2x.jpg`,
+  // `${scopePrefix}${scope}img/10-800_2x.jpg`,
+  // "https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UN_r8OUuhp.woff2",
+  // "https://fonts.gstatic.com/s/opensans/v15/mem5YaGs126MiZpBA-UNirkOX-hpOqc.woff2"
 ];
 
 self.addEventListener("install", event => {
@@ -75,16 +75,13 @@ self.addEventListener("fetch", event => {
           return (
             response ||
             fetch(event.request)
-              // .then(response => {
-              //     if(!response || response.status !== 200 || response.type !== 'basic') {
-              //         return response;
-              //         }
-              // })
               .then(response => {
-                return caches.open(staticCacheName).then(cache => {
-                  cache.put(event.request, response.clone());
-                  return response;
-                });
+                if (response && response.status == 200){
+                  return caches.open(staticCacheName).then(cache => {
+                    cache.put(event.request, response.clone());
+                    return response;
+                  });
+                }
               })
           );
         })
