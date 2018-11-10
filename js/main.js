@@ -168,6 +168,8 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = restaurant => {
   const li = document.createElement("li");
+  const div = document.createElement("div");
+  div.style.position = "relative";
 
   const image = document.createElement("img");
   image.className = "restaurant-img";
@@ -180,12 +182,20 @@ createRestaurantHTML = restaurant => {
   image.srcset = `${image_400_1x} 400w, ${image_400_2x} 400w, ${image_800_1x} 800w, ${image_800_2x} 1600w`;
   image.alt = `${restaurant.name} display`;
   image.tabIndex = 0;
-  li.append(image);
+  li.append(div);
+  div.append(image);
 
+  
   const name = document.createElement("p");
   name.innerHTML = restaurant.name;
   name.classList.add("name");
   li.append(name);
+
+  const likeButton = document.createElement('span');
+  likeButton.innerHTML = '❤';
+  likeButton.classList.add('like-button');
+  likeButton.dataset.restaurantId = restaurant.id;
+  div.appendChild(likeButton);
 
   const neighborhood = document.createElement("p");
   neighborhood.innerHTML = restaurant.neighborhood;

@@ -7,9 +7,17 @@ class DBHelper {
    * Change this to `http://localhost:1337/restaurants` to point to your local sails server.
    */
   static get DATABASE_URL() {
-    return `https://mws-restaurants-app.herokuapp.com/restaurants`;
+    // return `https://mws-restaurants-app.herokuapp.com/restaurants`;
+    return `http://localhost:1337/restaurants`;
+  }
 
-    // return `http://localhost:1337/restaurants`;
+  /**
+   * Reviews URL.
+   * Change this to `http://localhost:1337/re` to point to your local sails server.
+   */
+  static get REVIEWS_URL() {
+    // return `https://mws-restaurants-app.herokuapp.com/reviews`;
+    return `http://localhost:1337/reviews`;
   }
 
   /**
@@ -197,4 +205,32 @@ class DBHelper {
     );
     return marker;
   } */
+
+  
+  /**
+   * Add review for restaurant
+   */
+  static addRestaurantReview(id, review) {
+    fetch(DBHelper.REVIEWS_URL, 
+      {
+        method: 'POST',
+        body: JSON.stringify(review)
+      })
+      .then(res => res.json())
+      .then(res => console.log('Response', res));
+      // .then(restaurants => {
+      //   self.addDataToIdb("restaurantsArray", JSON.stringify(restaurants));
+      //   callback(null, restaurants);
+      // })
+      // .catch(err => {
+      //   self.getDataFromIdb("restaurantsArray").then(restaurants => {
+      //     if (restaurants) {
+      //       callback(null, JSON.parse(restaurants));
+      //       return;
+      //     }
+      //     const error = `Request failed`;
+      //     callback(error, null);
+      //   });
+      // });
+  }
 }

@@ -7,6 +7,8 @@ var newMap;
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
   makeGeneratedHtmlAccessible();
+  const reviewForm = document.querySelector('#review-form');
+  reviewForm.addEventListener('submit', submitReviewForm);
 });
 
 /**
@@ -216,7 +218,17 @@ getParameterByName = (name, url) => {
  * Make generated html accessible
  */
 
- makeGeneratedHtmlAccessible = () => {
+makeGeneratedHtmlAccessible = () => {
   const elements = document.querySelectorAll('nav, li, p, h1, h2, h3, h4, h5, h6, tr, footer');  
   return elements.forEach(el => el.tabIndex = 0);
- }
+}
+
+const submitReviewForm = (e) => {
+  e.preventDefault();
+  const name = e.target.name.value;
+  const rating = e.target.rating.value;
+  const comments = e.target.comments.value;
+  const review = { name, rating, comments};
+  DBHelper.addRestaurantReview(self.restaurant.id, review);
+  // window.location = '/';
+}
