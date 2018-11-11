@@ -201,7 +201,7 @@ nav h1 a {
   margin: 0;
   font-size: 11pt;
 }
-#restaurants-list li button {
+#restaurants-list li .details--button {
   cursor: pointer;
   background-color: #252831;
   border-color: #eee;
@@ -218,7 +218,7 @@ nav h1 a {
   text-transform: uppercase;
   width: 100%;
 }
-#restaurants-list li button:hover {
+#restaurants-list li .details--button:hover {
   opacity: 0.98;
   color: gold;
 }
@@ -532,7 +532,7 @@ nav h1 a {
 
 }
 
-.like-button:hover:not(:focus) {
+.like-button:hover, .like-button:focus {
   color: #ff1493;
   /* transform: scale(1.4); */
   /* font-size: 44; */
@@ -544,8 +544,9 @@ nav h1 a {
   bottom: 20px;
   right: 16px;
   font-size: 16px;
-  padding: 12px 14px 8px 14px;
+  padding: 12px 14px 10px 14px;
   border-radius: 50%;
+  border: none;
   z-index: 20;
 }
 

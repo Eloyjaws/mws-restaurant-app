@@ -206,11 +206,19 @@ class DBHelper {
     return marker;
   } */
 
+  /**
+   * Fetch restaurant review with id.
+   */
+  static fetchReviewsById(id) {
+    return fetch(`${DBHelper.REVIEWS_URL}?restaurant_id=${id}`)
+      .then(res => res.json())
+  }
+
   
   /**
    * Add review for restaurant
    */
-  static addRestaurantReview(id, review) {
+  static addRestaurantReview(review) {
     fetch(DBHelper.REVIEWS_URL, 
       {
         method: 'POST',

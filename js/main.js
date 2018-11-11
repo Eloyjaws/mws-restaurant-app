@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", event => {
   initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
+  addLikeListeners();
 });
 
 /**
@@ -191,7 +192,7 @@ createRestaurantHTML = restaurant => {
   name.classList.add("name");
   li.append(name);
 
-  const likeButton = document.createElement('span');
+  const likeButton = document.createElement('button');
   likeButton.innerHTML = '❤';
   likeButton.classList.add('like-button');
   likeButton.dataset.restaurantId = restaurant.id;
@@ -206,6 +207,7 @@ createRestaurantHTML = restaurant => {
   li.append(address);
 
   const more = document.createElement("button");
+  more.classList.add('details--button')
   more.innerHTML = "View Details";
   more.onclick = () => {
     const href = DBHelper.urlForRestaurant(restaurant);
@@ -251,3 +253,20 @@ makeGeneratedHtmlAccessible = () => {
   );
   return elements.forEach(el => (el.tabIndex = 0));
 };
+
+
+/**
+ * Toggle like for all buttons
+ */
+toggleLike = (e) => {
+  console.log(e.target.dataset.restaurantId)
+}
+
+/**
+ * Add onclick listners for all like buttons
+ */
+addLikeListeners = () => {
+  const likeButtons = document.querySelectorAll('.like-button');
+  likeButtons.forEach(button => button.addEventListener('click', toggleLike))
+  console.log(document.body.querySelectorAll('button'));
+}
