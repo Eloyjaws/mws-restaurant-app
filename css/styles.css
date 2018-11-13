@@ -360,7 +360,7 @@ nav h1 a {
   text-transform: uppercase;
 	width: 80vw;
 }
-#restaurant-container, #reviews-container {
+#restaurant-container, #reviews-container, #review-form-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   display: flex;
@@ -373,10 +373,10 @@ nav h1 a {
   max-width: 80vw;
   margin: 0 30px;
 }
-#reviews-container {
+#reviews-container, #review-form-container {
   padding: 30px 40px 80px;
 }
-#reviews-container h2 {
+#reviews-container h2, #review-form-container h2 {
   color: #252831;
   font-size: 24pt;
   font-weight: 300;
@@ -418,6 +418,9 @@ nav h1 a {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+.greyed-out-review.offline {
+  background: #f11;
 }
 .greyed-out-review p {
   color: #fff;
@@ -509,7 +512,7 @@ nav h1 a {
     align-items: center;
   }
   
-  #reviews-container {
+  #reviews-container, #review-form-container {
     padding: 30px 0 40px 30px;
   }
 /* 
@@ -532,7 +535,8 @@ nav h1 a {
 
 }
 
-.like-button:hover, .like-button:focus {
+/* .like-button:hover, .like-button:focus { */
+.like-button:hover:not(:focus) {
   color: #ff1493;
   /* transform: scale(1.4); */
   /* font-size: 44; */
@@ -552,4 +556,9 @@ nav h1 a {
 
 .like-button.liked {
   color: #f00;
+}
+
+.dark-background {
+  background: #252831;
+  color: #fff;
 }

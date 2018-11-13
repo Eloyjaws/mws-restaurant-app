@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", event => {
   initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
-  addLikeListeners();
 });
 
 /**
@@ -173,14 +172,39 @@ createRestaurantHTML = restaurant => {
   div.style.position = "relative";
 
   const image = document.createElement("img");
+  image.src = 'img/undefined-400_1x.jpg'
   image.className = "restaurant-img";
+  const options = {
+    threshold: 0.3
+  }
+  const loadImage = () => {
   let imageurl = DBHelper.imageUrlForRestaurant(restaurant).split(".jpg");
   image_400_1x = imageurl[0] + "-400_1x." + "jpg";
   image_400_2x = imageurl[0] + "-400_2x." + "jpg";
   image_800_1x = imageurl[0] + "-800_1x." + "jpg";
   image_800_2x = imageurl[0] + "-800_2x." + "jpg";
-  image.src = image_400_1x;
+  image.src = `${imageurl[0]}-800_1x.jpg`;
   image.srcset = `${image_400_1x} 400w, ${image_400_2x} 400w, ${image_800_1x} 800w, ${image_800_2x} 1600w`;
+  }
+
+  const handleIntersection = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.intersectionRatio > 0){
+        loadImage(entry.target)
+        observer.unobserve(entry.target)
+      }
+    })
+  }
+
+  let observer;
+  if (window.IntersectionObserver){
+    observer = new IntersectionObserver(handleIntersection, options);
+    observer.observe(image);
+  } else {
+    loadImage(image);
+  }
+
+  
   image.alt = `${restaurant.name} display`;
   image.tabIndex = 0;
   li.append(div);
@@ -195,7 +219,15 @@ createRestaurantHTML = restaurant => {
   const likeButton = document.createElement('button');
   likeButton.innerHTML = '❤';
   likeButton.classList.add('like-button');
+  if(restaurant.is_favorite === 'true'){
+    likeButton.classList.add('liked');
+    likeButton.setAttribute('aria-label', 'Click to like')
+  } else {
+    likeButton.classList.remove('liked');
+    likeButton.setAttribute('aria-label', 'Click to unlike')
+  }
   likeButton.dataset.restaurantId = restaurant.id;
+  likeButton.addEventListener('click', toggleLike);
   div.appendChild(likeButton);
 
   const neighborhood = document.createElement("p");
@@ -259,14 +291,19 @@ makeGeneratedHtmlAccessible = () => {
  * Toggle like for all buttons
  */
 toggleLike = (e) => {
-  console.log(e.target.dataset.restaurantId)
+  const restaurantId = e.target.dataset.restaurantId;
+  const isLiked = e.target.classList.contains('liked');
+  DBHelper.likeRestaurant(restaurantId, !isLiked).then(res => {
+    if(res && !isLiked){
+      e.target.classList.add('liked');
+    } else {
+      e.target.classList.remove('liked')
+    }
+  })
 }
 
-/**
- * Add onclick listners for all like buttons
- */
-addLikeListeners = () => {
-  const likeButtons = document.querySelectorAll('.like-button');
-  likeButtons.forEach(button => button.addEventListener('click', toggleLike))
-  console.log(document.body.querySelectorAll('button'));
-}
+
+
+
+
+

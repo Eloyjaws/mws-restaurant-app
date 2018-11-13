@@ -21,4 +21,3 @@ self.getDataFromIdb = key => {
     })
     .catch(err => console.log(`Error getting ${key} from idb`));
 };
-

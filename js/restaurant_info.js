@@ -154,7 +154,6 @@ fillReviewsHTML = () => {
   let reviews;
   DBHelper.fetchReviewsById(self.restaurant.id).then(res => {
     reviews = res;
-    console.log(reviews);
     const container = document.getElementById("reviews-container");
     const title = document.createElement("h2");
     title.innerHTML = "Reviews";
@@ -163,6 +162,7 @@ fillReviewsHTML = () => {
     if (!reviews) {
       const noReviews = document.createElement("p");
       noReviews.innerHTML = "No reviews yet!";
+      noReviews.classList.add('no-reviews')
       container.appendChild(noReviews);
       return;
     }
@@ -177,10 +177,13 @@ fillReviewsHTML = () => {
 /**
  * Create review HTML and add it to the webpage.
  */
-createReviewHTML = review => {
+createReviewHTML = (review, isOffline = false) => {
   const li = document.createElement("li");
   const div = document.createElement("div");
   div.classList.add("greyed-out-review");
+    if(isOffline){
+      div.classList.add("offline");
+    }
   li.appendChild(div);
 
   const name = document.createElement("p");
@@ -243,9 +246,23 @@ const submitReviewForm = e => {
   const name = e.target.name.value;
   const rating = e.target.rating.value;
   const comments = e.target.comments.value;
+  if(!name || !rating || !comments){
+    alert('Review form is incomplete')
+    return;
+  } else {
+    e.target.name.value = '';
+    e.target.rating.value = '';
+    e.target.comments.value = '';
+  }
   const review = { restaurant_id: self.restaurant.id, name, rating, comments };
-  DBHelper.addRestaurantReview(review);
-  window.location = `/restaurant.html?id=${self.restaurant.id}`;
+
+  //if offline save and wait for a network connection to be established
+  if(!navigator.onLine){
+    return DBHelper.addRestaurantReviewOffline(review).then(review => addReviewHtmlToDom(review, true))
+  }
+
+  DBHelper.addRestaurantReview(review).then(addReviewHtmlToDom);
+  // window.location = `/restaurant.html?id=${self.restaurant.id}`;
 };
 
 const getDateString = date => {
@@ -282,3 +299,18 @@ const getDateString = date => {
   };
   return `${getMonthString(dateObject.getMonth())} ${dateObject.getDate()}, ${dateObject.getFullYear()}`;
 };
+
+const addReviewHtmlToDom = (review, isOffline=false) => {
+  review = {...review, updatedAt: Date.now()}
+  const newReview = createReviewHTML(review, isOffline);
+  const noReviews = document.querySelector('.no-reviews');
+  if(noReviews){
+    noReviews.remove();
+  }
+
+  const reviewsContainer = document.querySelector('#reviews-container');
+  const reviewsList = document.querySelector('#reviews-list');
+
+  reviewsList.insertBefore(newReview, reviewsList.firstChild);
+  reviewsContainer.appendChild(reviewsList);
+}

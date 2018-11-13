@@ -128,6 +128,21 @@ class DBHelper {
    */
   static fetchNeighborhoods(callback) {
     // Fetch all restaurants
+    // self.getDataFromIdb("restaurantsArray").then(restaurants => {
+    //   if (restaurants) {
+    //     const neighborhoods = restaurants.map(
+    //       (v, i) => restaurants[i].neighborhood
+    //     );
+    //     // Remove duplicates from neighborhoods
+    //     const uniqueNeighborhoods = neighborhoods.filter(
+    //       (v, i) => neighborhoods.indexOf(v) == i
+    //     );
+    //     callback(null, uniqueNeighborhoods);
+    //   }
+    //   const error = `Request failed`;
+    //   callback(error, null);
+    // })
+    // .catch(console.log);
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
         callback(error, null);
@@ -207,11 +222,25 @@ class DBHelper {
   } */
 
   /**
+   * Favorite Restaurant.
+   */
+  static likeRestaurant(id, like = true) {
+    return fetch(`${DBHelper.DATABASE_URL}/${id}/?is_favorite=${like}`, {
+      method: 'PUT'
+    })
+      .then(res => res.json())
+  }
+
+  /**
    * Fetch restaurant review with id.
    */
   static fetchReviewsById(id) {
     return fetch(`${DBHelper.REVIEWS_URL}?restaurant_id=${id}`)
       .then(res => res.json())
+      .then(reviews => {
+        addDataToIdb('reviews', reviews);
+        return reviews;
+    })
   }
 
   
@@ -219,26 +248,31 @@ class DBHelper {
    * Add review for restaurant
    */
   static addRestaurantReview(review) {
-    fetch(DBHelper.REVIEWS_URL, 
+    return fetch(DBHelper.REVIEWS_URL, 
       {
         method: 'POST',
         body: JSON.stringify(review)
       })
       .then(res => res.json())
-      .then(res => console.log('Response', res));
-      // .then(restaurants => {
-      //   self.addDataToIdb("restaurantsArray", JSON.stringify(restaurants));
-      //   callback(null, restaurants);
-      // })
-      // .catch(err => {
-      //   self.getDataFromIdb("restaurantsArray").then(restaurants => {
-      //     if (restaurants) {
-      //       callback(null, JSON.parse(restaurants));
-      //       return;
-      //     }
-      //     const error = `Request failed`;
-      //     callback(error, null);
-      //   });
-      // });
+      .catch(err => {
+        return err;
+      });
+  }
+
+  /**
+   * Adds reviews when connection is reestablished
+   */
+  static addRestaurantReviewOffline(review) {
+  // make each review saved in localStorage unique
+  const date = Date.now();
+  localStorage.setItem(`restaurant-${date}`, JSON.stringify(review));
+  window.addEventListener('online', ()=>{
+    const review = localStorage.getItem(`restaurant-${date}`)
+    if(review) DBHelper.addRestaurantReview(review);
+    localStorage.removeItem(`restaurant-${date}`)
+    //remove class of ofline from reviews
+    document.querySelectorAll('.offline').forEach(review => review.classList.remove('offline'));
+  })
+  return Promise.resolve(review);
   }
 }
