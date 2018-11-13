@@ -199,6 +199,7 @@ nav h1 a {
   padding: 0 30px 25px;
   text-align: left;
   max-width: 100%;
+  min-width: 280px;
 }
 #restaurants-list .restaurant-img {
   background-color: #ccc;
@@ -222,7 +223,7 @@ nav h1 a {
   margin: 0;
   font-size: 11pt;
 }
-#restaurants-list li button {
+#restaurants-list li .details--button {
   cursor: pointer;
   background-color: #252831;
   border-color: #eee;
@@ -233,14 +234,78 @@ nav h1 a {
   display: inline-block;
   font-size: 10pt;
   margin: 15px 0 0;
-  padding: 8px 30px 10px;
+  padding: 12px 30px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   width: 100%;
 }
-#restaurants-list li button:hover {
+#restaurants-list li .details--button:hover {
   opacity: 0.98;
+  color: gold;
+}
+
+#review-form {
+  background-color: #fff;
+  border: 2px solid #f3f3f3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 0 20px 20px 0;
+  overflow: hidden;
+  padding: 80px 20px 20px 20px;
+  position: relative;
+  width: 85%;
+  border-top-left-radius: 2em;
+  max-width: 270px;
+}
+
+#review-form label {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+.form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 8px;
+}
+.btn {
+  margin-top: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+.btn:hover, .btn:focus {
+  color: gold;
+}
+.btn-submit {
+  background-color: #252831;
+  padding: 12px 8px;
+  border: none;
+  color: #fff;
+}
+
+.p-8 {
+  padding: 8px;
+}
+.p-10 {
+  padding: 10px;
+}
+
+.mt-2 {
+  margin-top: 2px;
 }
 
 /* ====================== Restaurant Details ====================== */
@@ -345,7 +410,7 @@ nav h1 a {
   text-transform: uppercase;
 	width: 80vw;
 }
-#restaurant-container, #reviews-container {
+#restaurant-container, #reviews-container, #review-form-container {
   border-bottom: 1px solid #d9d9d9;
   border-top: 1px solid #fff;
   display: -webkit-box;
@@ -365,10 +430,10 @@ nav h1 a {
   max-width: 80vw;
   margin: 0 30px;
 }
-#reviews-container {
+#reviews-container, #review-form-container {
   padding: 30px 40px 80px;
 }
-#reviews-container h2 {
+#reviews-container h2, #review-form-container h2 {
   color: #252831;
   font-size: 24pt;
   font-weight: 300;
@@ -419,6 +484,9 @@ nav h1 a {
       -ms-flex-align: center;
           align-items: center;
 }
+.greyed-out-review.offline {
+  background: #f11;
+}
 .greyed-out-review p {
   color: #fff;
   font-size: 1.2em;
@@ -446,7 +514,6 @@ nav h1 a {
 @media screen and (min-width: 700px) {
   #restaurant-container {
     width: 100vw;
-    max-width: 100vw;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -521,7 +588,7 @@ nav h1 a {
             align-items: center;
   }
   
-  #reviews-container {
+  #reviews-container, #review-form-container {
     padding: 30px 0 40px 30px;
   }
 /* 
@@ -542,4 +609,32 @@ nav h1 a {
     font-size: 1.8em;
   } */
 
+}
+
+/* .like-button:hover, .like-button:focus { */
+.like-button:hover:not(:focus) {
+  color: #ff1493;
+  /* transform: scale(1.4); */
+  /* font-size: 44; */
+}
+.like-button {
+  cursor: pointer;
+  position: absolute;
+  background: white;
+  bottom: 20px;
+  right: 16px;
+  font-size: 16px;
+  padding: 12px 14px 10px 14px;
+  border-radius: 50%;
+  border: none;
+  z-index: 20;
+}
+
+.like-button.liked {
+  color: #f00;
+}
+
+.dark-background {
+  background: #252831;
+  color: #fff;
 }

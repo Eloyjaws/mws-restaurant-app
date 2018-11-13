@@ -4,6 +4,7 @@ function main() {
     // const scope = '/'
     // const scope = '/docs/'
     const scope = "/mws-restaurant-app/";
+    console.log('registering');
     navigator.serviceWorker
       .register("./sw.js", { updateViaCache: "none", scope })
       .then(reg => {

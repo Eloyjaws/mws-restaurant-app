@@ -5,7 +5,7 @@ let scopePrefix = `.`;
 let scope = "/";
 
 // Set a name for the current cache
-let staticCacheName = "mws-restaurants-project-v7";
+let staticCacheName = "mws-restaurants-project-v8";
 
 // Default files to always cache
 const cacheFiles = [
