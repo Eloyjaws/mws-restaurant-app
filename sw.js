@@ -70,6 +70,9 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method === "GET") {
+    if(event.request.url.split('?')[0].endsWith('reviews')){
+      return fetch(event.request);
+    }
     event.respondWith(
       caches.open(staticCacheName).then(cache =>
         cache

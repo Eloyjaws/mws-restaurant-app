@@ -267,7 +267,7 @@ class DBHelper {
   const date = Date.now();
   localStorage.setItem(`restaurant-${date}`, JSON.stringify(review));
   window.addEventListener('online', ()=>{
-    const review = localStorage.getItem(`restaurant-${date}`)
+    const review = JSON.parse(localStorage.getItem(`restaurant-${date}`))
     if(review) DBHelper.addRestaurantReview(review);
     localStorage.removeItem(`restaurant-${date}`)
     //remove class of ofline from reviews
