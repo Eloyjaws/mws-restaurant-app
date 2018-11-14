@@ -7,17 +7,17 @@ class DBHelper {
    * Change this to `http://localhost:1337/restaurants` to point to your local sails server.
    */
   static get DATABASE_URL() {
-    // return `https://mws-restaurants-app.herokuapp.com/restaurants`;
-    return `http://localhost:1337/restaurants`;
+    return `https://mws-restaurants-app.herokuapp.com/restaurants`;
+    // return `http://localhost:1337/restaurants`;
   }
 
   /**
    * Reviews URL.
-   * Change this to `http://localhost:1337/re` to point to your local sails server.
+   * Change this to `http://localhost:1337/reviews` to point to your local sails server.
    */
   static get REVIEWS_URL() {
-    // return `https://mws-restaurants-app.herokuapp.com/reviews`;
-    return `http://localhost:1337/reviews`;
+    return `https://mws-restaurants-app.herokuapp.com/reviews`;
+    // return `http://localhost:1337/reviews`;
   }
 
   /**
@@ -238,8 +238,15 @@ class DBHelper {
     return fetch(`${DBHelper.REVIEWS_URL}?restaurant_id=${id}`)
       .then(res => res.json())
       .then(reviews => {
-        addDataToIdb('reviews', reviews);
+        self.addDataToIdb(`reviews${id}`, reviews);
         return reviews;
+    }).catch(err => {
+      return self.getDataFromIdb(`reviews${id}`).then(reviews => {
+        if (reviews) {
+          return reviews;
+        }
+        return err;
+      });
     })
   }
 
@@ -254,6 +261,14 @@ class DBHelper {
         body: JSON.stringify(review)
       })
       .then(res => res.json())
+      .then(addedReview => {
+        self.getDataFromIdb(`reviews${addedReview.restaurant_id}`).then(reviewsArray => {
+          const newReviews = [addedReview, ...reviewsArray];
+          console.log('New reviews', newReviews);
+          self.addDataToIdb(`reviews${addedReview.restaurant_id}`, newReviews);
+        })
+        return addedReview;
+      })
       .catch(err => {
         return err;
       });
@@ -267,7 +282,7 @@ class DBHelper {
   const date = Date.now();
   localStorage.setItem(`restaurant-${date}`, JSON.stringify(review));
   window.addEventListener('online', ()=>{
-    const review = JSON.parse(localStorage.getItem(`restaurant-${date}`))
+    const review = JSON.parse(localStorage.getItem(`restaurant-${date}`));
     if(review) DBHelper.addRestaurantReview(review);
     localStorage.removeItem(`restaurant-${date}`)
     //remove class of ofline from reviews
