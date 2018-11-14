@@ -91,7 +91,7 @@ self.addEventListener("fetch", event => {
             );
           })
           .catch(() => {
-            return caches.match("/index.html");
+            return caches.match(`${scopePrefix}/index.html`);
           })
       )
     );
