@@ -2,7 +2,7 @@ let scopePrefix = ``;
 // let scope = "/dist/";
 
 // let scopePrefix = `.`;
-// let scope = "/";
+let scope = "/";
 
 // Set a name for the current cache
 let staticCacheName = "mws-restaurants-project-v8";
