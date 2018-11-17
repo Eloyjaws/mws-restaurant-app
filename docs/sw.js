@@ -1,7 +1,7 @@
 let scopePrefix = ``;
 // let scope = "/dist/";
 
-let scopePrefix = `.`;
+// let scopePrefix = `.`;
 // let scope = "/";
 
 // Set a name for the current cache
