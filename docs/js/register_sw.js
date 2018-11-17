@@ -6,7 +6,7 @@ function main() {
     const scope = "/mws-restaurant-app/";
     console.log('registering');
     navigator.serviceWorker
-      .register("/sw.js", { updateViaCache: "none", scope })
+      .register("./sw.js", { updateViaCache: "none", scope })
       .then(reg => {
         if (!navigator.serviceWorker.controller) return;
         if (reg.waiting) {
